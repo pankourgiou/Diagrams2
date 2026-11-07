@@ -1,1 +1,1 @@
-download the .html file and double cl8ck it and experiment with the diagrams.
+download the .html file and double click it and experiment with the diagrams.
