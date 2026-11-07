@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form, Pattern, Rhythm: Three Frontiers</title>
+<style>
+:root{color-scheme:dark;--bg:#130f1d;--ink:#f1ece4;--mute:#a79fb5;--line:#322a45;--a1:#ffb454;--a2:#3fe0b5;--a3:#ff6fb5}
+*{box-sizing:border-box}
+html{scroll-snap-type:y proximity;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 Charter,"Iowan Old Style","Palatino Linotype",Georgia,serif}
+.serif,h1,h2{font-family:Didot,"Bodoni 72","Bodoni MT","Playfair Display","Iowan Old Style",Georgia,serif}
+header{min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:8vh 7vw;scroll-snap-align:start}
+h1{font-size:clamp(3rem,10vw,8rem);line-height:.95;margin:0 0 24px;font-weight:400;letter-spacing:-.02em}
+header p{max-width:52ch;color:var(--mute);font-size:1.15rem;margin:0 0 40px}
+nav{display:flex;flex-wrap:wrap;gap:14px}
+nav a{color:var(--ink);text-decoration:none;border-top:3px solid var(--c);padding:10px 22px 4px 0;min-width:210px;font-size:1rem}
+nav a small{display:block;color:var(--mute);font-size:.82rem}
+nav a:focus-visible{outline:2px solid var(--c);outline-offset:4px}
+section{min-height:100vh;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:5vw;align-items:center;padding:7vh 7vw;border-top:1px solid var(--line);scroll-snap-align:start}
+section:nth-of-type(even){grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+section:nth-of-type(even) .txt{order:2}
+.txt{border-left:3px solid var(--c);padding-left:26px}
+h2{font-size:clamp(2rem,4vw,3.2rem);font-weight:400;line-height:1.05;margin:0 0 6px}
+.eq{font-style:italic;color:var(--c);font-size:1.05rem;margin:0 0 18px}
+.txt p{color:var(--mute);margin:0 0 14px;max-width:46ch}
+.ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:20px;font-size:.92rem;color:var(--mute)}
+button{font:inherit;font-size:.9rem;padding:5px 14px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:20px;cursor:pointer}
+button[aria-pressed=true]{background:var(--c);border-color:var(--c);color:#150f20}
+button:focus-visible,input:focus-visible{outline:2px solid var(--c);outline-offset:3px}
+input[type=range]{accent-color:var(--c);width:200px}
+.read{margin-top:14px;color:var(--ink);font-size:.95rem;min-height:3em}
+.read b{color:var(--c)}
+.fig{border-radius:10px;overflow:hidden;background:#0a0713;box-shadow:0 0 0 1px var(--line),0 30px 80px -30px var(--c)}
+canvas{display:block;width:100%;height:auto;touch-action:none}
+.s1{--c:var(--a1)}.s2{--c:var(--a2)}.s3{--c:var(--a3)}
+footer{padding:40px 7vw 60px;color:var(--mute);font-size:.9rem;border-top:1px solid var(--line)}
+@media(max-width:800px){section,section:nth-of-type(even){grid-template-columns:1fr;min-height:0;gap:28px}section:nth-of-type(even) .txt{order:0}}
+</style>
+</head>
+<body>
+<header>
+<h1>Form,<br>pattern,<br>rhythm.</h1>
+<p>Three ideas from the edge of geometry, biology and physics. Each one is a live simulation: drag, click and tune it.</p>
+<nav>
+<a href="#hopf" style="--c:var(--a1)">The Hopf fibration<small>topology of a 3-sphere</small></a>
+<a href="#turing" style="--c:var(--a2)">Reaction and diffusion<small>how spots and stripes arise</small></a>
+<a href="#kura" style="--c:var(--a3)">The Kuramoto model<small>sudden synchrony</small></a>
+</nav>
+</header>
+
+<section id="hopf" class="s1">
+<div class="txt">
+<h2>The Hopf fibration</h2>
+<div class="eq">S³ → S², (z₁, z₂) ↦ z₁ / z₂</div>
+<p>The 3-sphere, a shape living in four dimensions, can be split into circles so that every point of an ordinary sphere corresponds to exactly one circle. Any two of those circles are linked once, like rings in a chain.</p>
+<p>Here we project the circles into 3D. Circles that sit over one latitude of the sphere form a torus, so the whole picture is a set of nested tori.</p>
+<div class="ctl"><span>Drag to rotate in 3D.</span><button id="hs" aria-pressed="true">Twist through 4D</button></div>
+</div>
+<div class="fig"><canvas id="hc" width="720" height="720" aria-label="Hopf fibration, nested linked circles"></canvas></div>
+</section>
+
+<section id="turing" class="s2">
+<div class="fig"><canvas id="gc" width="200" height="200" style="aspect-ratio:1;image-rendering:auto" aria-label="Gray-Scott reaction-diffusion simulation"></canvas></div>
+<div class="txt">
+<h2>Reaction and diffusion</h2>
+<div class="eq">∂v/∂t = D<sub>v</sub>∇²v + uv² − (F + k)v</div>
+<p>In 1952 Alan Turing showed that two chemicals which react while spreading at different speeds can break uniformity on their own. The Gray–Scott version below produces dividing spots, coral and mazes from nothing but two numbers, the feed rate <i>F</i> and kill rate <i>k</i>.</p>
+<p>Click or drag on the picture to drop in fresh chemical.</p>
+<div class="ctl" id="gp" role="group" aria-label="Pattern presets"></div>
+<div class="ctl"><button id="gr">Reseed</button></div>
+</div>
+</section>
+
+<section id="kura" class="s3">
+<div class="txt">
+<h2>The Kuramoto model</h2>
+<div class="eq">dθᵢ/dt = ωᵢ + K r sin(ψ − θᵢ)</div>
+<p>Fireflies, heart cells and power grids all contain thousands of oscillators with slightly different natural rhythms. Below a critical coupling K<sub>c</sub> ≈ 1.6 they stay incoherent. Past it, a locked core suddenly appears and the order parameter <i>r</i> grows from zero.</p>
+<p>The arrow is the group’s average phase, and its length is <i>r</i>.</p>
+<div class="ctl"><label for="kk">Coupling K</label><input id="kk" type="range" min="0" max="4" step="0.05" value="0.6"><output id="ko"></output></div>
+<div class="read" id="kr"></div>
+</div>
+<div class="fig"><canvas id="kc" width="720" height="560" aria-label="Kuramoto oscillators on a circle with order parameter history"></canvas></div>
+</section>
+
+<footer class="serif">Everything on this page is computed in your browser, with no libraries.</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Hopf fibration ---------- */
+(function(){
+  const cv=$('hc'),g=cv.getContext('2d'),S=cv.width;
+  const TH=[.35,.8,1.3,1.85,2.35,2.8],NP=14,NS=96,fib=[];
+  TH.forEach((t,k)=>{for(let j=0;j<NP;j++){
+    const ph=j/NP*Math.PI*2+k*.2,pts=[];
+    for(let s=0;s<=NS;s++){const xi=s/NS*Math.PI*2,a=Math.cos(t/2),b=Math.sin(t/2);
+      pts.push([a*Math.cos(xi+ph),a*Math.sin(xi+ph),b*Math.cos(xi),b*Math.sin(xi)]);}
+    fib.push({pts,h:(j/NP)*360+k*18,l:48+k*4});}});
+  let yaw=.5,pitch=.45,tw=!still,t0=0,drag=false,lx=0,ly=0;
+  cv.onpointerdown=e=>{drag=true;lx=e.clientX;ly=e.clientY;cv.setPointerCapture(e.pointerId)};
+  cv.onpointerup=()=>drag=false;
+  cv.onpointermove=e=>{if(!drag)return;yaw+=(e.clientX-lx)*.008;pitch+=(e.clientY-ly)*.008;lx=e.clientX;ly=e.clientY;};
+  $('hs').onclick=e=>{tw=!tw;e.target.setAttribute('aria-pressed',tw)};
+  function frame(){
+    t0+=.012;if(!drag&&!still)yaw+=.003;
+    const a=tw?.9*Math.sin(t0*.7):0,ca=Math.cos(a),sa=Math.sin(a),cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
+    g.clearRect(0,0,S,S);g.globalCompositeOperation='lighter';g.lineWidth=1.6;g.lineJoin='round';
+    for(const f of fib){
+      g.strokeStyle='hsla('+f.h+',90%,'+f.l+'%,.5)';g.beginPath();let on=false;
+      for(const p of f.pts){
+        const x1=p[0]*ca-p[3]*sa,x4=p[0]*sa+p[3]*ca,d=1-x4;
+        if(d<.18){on=false;continue;}
+        const X=p[1]/d*1.0,Y=p[2]/d,Z=x1/d;
+        const xr=X*cy+Z*sy,zr=-X*sy+Z*cy,yr=Y*cp-zr*sp,zz=Y*sp+zr*cp;
+        const k=1/Math.max(.35,1+zz*.04),px=S/2+xr*62*k,py=S/2+yr*62*k;
+        on?g.lineTo(px,py):g.moveTo(px,py);on=true;
+      }
+      g.stroke();
+    }
+    g.globalCompositeOperation='source-over';requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+/* ---------- Gray-Scott ---------- */
+(function(){
+  const cv=$('gc'),g=cv.getContext('2d'),N=160;cv.width=N;cv.height=N;
+  let U=new Float32Array(N*N),V=new Float32Array(N*N),U2=new Float32Array(N*N),V2=new Float32Array(N*N);
+  const pre=[['Dividing spots',.0367,.0649],['Coral',.0545,.062],['Maze',.029,.057],['Solitons',.03,.062]];
+  let F=pre[0][1],K=pre[0][2];
+  function seed(){
+    U.fill(1);V.fill(0);
+    for(let n=0;n<9;n++){const cx=20+Math.random()*(N-40)|0,cy=20+Math.random()*(N-40)|0;blob(cx,cy,5);}
+  }
+  function blob(cx,cy,r){for(let y=-r;y<=r;y++)for(let x=-r;x<=r;x++)if(x*x+y*y<=r*r){const i=((cy+y+N)%N)*N+(cx+x+N)%N;U[i]=.5;V[i]=.25+Math.random()*.1;}}
+  function step(){
+    for(let j=0;j<N;j++){const jm=(j?j-1:N-1)*N,jp=(j<N-1?j+1:0)*N,jj=j*N;
+      for(let i=0;i<N;i++){const im=i?i-1:N-1,ip=i<N-1?i+1:0,k=jj+i;
+        const u=U[k],v=V[k];
+        const lu=-u+.2*(U[jj+im]+U[jj+ip]+U[jm+i]+U[jp+i])+.05*(U[jm+im]+U[jm+ip]+U[jp+im]+U[jp+ip]);
+        const lv=-v+.2*(V[jj+im]+V[jj+ip]+V[jm+i]+V[jp+i])+.05*(V[jm+im]+V[jm+ip]+V[jp+im]+V[jp+ip]);
+        const r=u*v*v;U2[k]=u+lu-r+F*(1-u);V2[k]=v+.5*lv+r-(F+K)*v;}}
+    let t=U;U=U2;U2=t;t=V;V=V2;V2=t;
+  }
+  const img=g.createImageData(N,N),A=[8,22,34],B=[63,224,181],C=[255,240,196];
+  function paint(){
+    for(let k=0;k<N*N;k++){const t=Math.min(1,V[k]*2.8),o=k*4;
+      const lo=t<.5,s=lo?t*2:(t-.5)*2,P=lo?A:B,Q=lo?B:C;
+      img.data[o]=P[0]+(Q[0]-P[0])*s;img.data[o+1]=P[1]+(Q[1]-P[1])*s;img.data[o+2]=P[2]+(Q[2]-P[2])*s;img.data[o+3]=255;}
+    g.putImageData(img,0,0);
+  }
+  const box=$('gp');
+  pre.forEach((p,i)=>{const b=document.createElement('button');b.textContent=p[0];b.setAttribute('aria-pressed',i===0);
+    b.onclick=()=>{[...box.children].forEach(x=>x.setAttribute('aria-pressed',x===b));F=p[1];K=p[2];};box.appendChild(b);});
+  $('gr').onclick=seed;
+  let d=false;
+  function drop(e){const r=cv.getBoundingClientRect();blob(Math.floor((e.clientX-r.left)/r.width*N),Math.floor((e.clientY-r.top)/r.height*N),4);}
+  cv.onpointerdown=e=>{d=true;cv.setPointerCapture(e.pointerId);drop(e)};cv.onpointerup=()=>d=false;cv.onpointermove=e=>{if(d)drop(e)};
+  seed();
+  (function loop(){for(let i=0;i<8;i++)step();paint();requestAnimationFrame(loop);})();
+})();
+
+/* ---------- Kuramoto ---------- */
+(function(){
+  const cv=$('kc'),g=cv.getContext('2d'),W=cv.width,H=cv.height,N=220,dt=.04,HN=360;
+  const gauss=()=>Math.sqrt(-2*Math.log(1-Math.random()))*Math.cos(6.2832*Math.random());
+  const w=Array.from({length:N},gauss),th=Array.from({length:N},()=>Math.random()*6.2832),hist=[];
+  let K=.6;const ks=$('kk');
+  ks.oninput=()=>{K=+ks.value;$('ko').textContent=K.toFixed(2)};K=+ks.value;$('ko').textContent=K.toFixed(2);
+  const CX=W/2,CY=210,RD=185;
+  function frame(){
+    for(let s=0;s<3;s++){
+      let c=0,sn=0;for(let i=0;i<N;i++){c+=Math.cos(th[i]);sn+=Math.sin(th[i]);}
+      c/=N;sn/=N;const r=Math.hypot(c,sn),ps=Math.atan2(sn,c);
+      for(let i=0;i<N;i++)th[i]+=dt*(w[i]+K*r*Math.sin(ps-th[i]));
+      if(s===2){hist.push(r);if(hist.length>HN)hist.shift();}
+    }
+    let c=0,sn=0;for(let i=0;i<N;i++){c+=Math.cos(th[i]);sn+=Math.sin(th[i]);}
+    c/=N;sn/=N;const r=Math.hypot(c,sn),ps=Math.atan2(sn,c);
+    g.clearRect(0,0,W,H);
+    g.strokeStyle='#322a45';g.lineWidth=1.5;g.beginPath();g.arc(CX,CY,RD,0,6.2832);g.stroke();
+    g.beginPath();g.arc(CX,CY,RD*.5,0,6.2832);g.setLineDash([2,6]);g.stroke();g.setLineDash([]);
+    for(let i=0;i<N;i++){const a=th[i];g.fillStyle='hsl('+(310+w[i]*28)+',90%,68%)';
+      g.beginPath();g.arc(CX+RD*Math.cos(a),CY-RD*Math.sin(a),4,0,6.2832);g.fill();}
+    g.strokeStyle='#ffb454';g.lineWidth=4;g.lineCap='round';g.beginPath();g.moveTo(CX,CY);g.lineTo(CX+RD*r*Math.cos(ps),CY-RD*r*Math.sin(ps));g.stroke();
+    g.fillStyle='#ffb454';g.beginPath();g.arc(CX,CY,5,0,6.2832);g.fill();
+    /* history */
+    const y0=420,h=110;
+    g.strokeStyle='#322a45';g.lineWidth=1;g.strokeRect(30,y0,W-60,h);
+    g.fillStyle='#a79fb5';g.font='13px sans-serif';g.fillText('order parameter r over time',34,y0-8);g.fillText('1',14,y0+8);g.fillText('0',14,y0+h);
+    g.strokeStyle='#ff6fb5';g.lineWidth=2;g.beginPath();
+    hist.forEach((v,i)=>{const x=30+i/(HN-1)*(W-60),y=y0+h-v*h;i?g.lineTo(x,y):g.moveTo(x,y);});g.stroke();
+    $('kr').innerHTML='r = <b>'+r.toFixed(2)+'</b>. '+(r<.2?'Incoherent: every oscillator keeps its own beat.':r<.55?'A small locked core is forming.':'Strongly synchronised: most oscillators move as one.')+(K<1.6?' K is below K<sub>c</sub>.':' K is above K<sub>c</sub>.');
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+</body>
+</html>
